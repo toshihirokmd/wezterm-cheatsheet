@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WezTerm Shortcuts Cheat Sheet</title>
+<style>
+  @page {
+    size: A4 landscape;
+    margin: 8mm;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #1a1b26;
+    color: #c0caf5;
+    font-family: 'Segoe UI', 'Meiryo', sans-serif;
+    width: 297mm;
+    height: 210mm;
+    padding: 8mm 10mm;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  @media print {
+    body {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 4mm;
+    border-bottom: 2px solid #3b4261;
+    padding-bottom: 3mm;
+  }
+  .header h1 {
+    font-size: 18pt;
+    font-weight: 700;
+    color: #7aa2f7;
+    letter-spacing: 1px;
+  }
+  .header .subtitle {
+    font-size: 9pt;
+    color: #565f89;
+    margin-left: auto;
+  }
+  .header .logo {
+    width: 28px;
+    height: 28px;
+  }
+
+  /* Leader badge */
+  .leader-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4mm;
+    background: rgba(122, 162, 247, 0.1);
+    border: 1px solid #3d59a1;
+    border-radius: 6px;
+    padding: 2mm 4mm;
+  }
+  .leader-bar .label {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #7aa2f7;
+  }
+  .leader-bar .explain {
+    font-size: 7.5pt;
+    color: #a9b1d6;
+  }
+
+  /* 3-column grid */
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr 1fr;
+    gap: 5mm;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5mm;
+  }
+
+  .column-title {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #bb9af7;
+    border-bottom: 1.5px solid #3b4261;
+    padding-bottom: 1.5mm;
+    margin-bottom: 0.5mm;
+  }
+
+  /* Shortcut row */
+  .shortcut-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 1.2mm;
+    flex-wrap: wrap;
+  }
+
+  /* Key cap styling */
+  .key {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 20px;
+    padding: 0 5px;
+    border-radius: 4px;
+    font-size: 7.5pt;
+    font-weight: 600;
+    font-family: 'Consolas', 'Courier New', monospace;
+    background: linear-gradient(180deg, #3b4261 0%, #292e42 100%);
+    border: 1px solid #545c7e;
+    border-bottom: 2.5px solid #1e2030;
+    color: #c0caf5;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 1;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.4);
+  }
+
+  .key.accent {
+    background: linear-gradient(180deg, #7aa2f7 0%, #3d59a1 100%);
+    border-color: #89b4fa;
+    border-bottom-color: #2a4080;
+    color: #fff;
+  }
+
+  .key.green {
+    background: linear-gradient(180deg, #9ece6a 0%, #56723c 100%);
+    border-color: #a9d275;
+    border-bottom-color: #3d5229;
+    color: #fff;
+  }
+
+  .key.orange {
+    background: linear-gradient(180deg, #e0af68 0%, #8a6a30 100%);
+    border-color: #e8bf7a;
+    border-bottom-color: #6b5222;
+    color: #1a1b26;
+  }
+
+  .key.pink {
+    background: linear-gradient(180deg, #bb9af7 0%, #6e4ca0 100%);
+    border-color: #c8a9f9;
+    border-bottom-color: #523980;
+    color: #fff;
+  }
+
+  /* Leader key special style */
+  .key.leader {
+    background: linear-gradient(180deg, #ff9e64 0%, #a35b2e 100%);
+    border-color: #ffb380;
+    border-bottom-color: #7a4420;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .key.small {
+    min-width: 17px;
+    height: 17px;
+    font-size: 7pt;
+    padding: 0 4px;
+  }
+
+  .plus {
+    color: #565f89;
+    font-size: 8pt;
+    font-weight: 700;
+    margin: 0 1px;
+  }
+
+  .then {
+    color: #ff9e64;
+    font-size: 7.5pt;
+    font-weight: 700;
+    margin: 0 2px;
+  }
+
+  .arrow {
+    color: #7aa2f7;
+    font-size: 8pt;
+    margin: 0 2px;
+  }
+
+  .desc {
+    color: #a9b1d6;
+    font-size: 7pt;
+    white-space: nowrap;
+  }
+
+  /* Mini pane diagrams */
+  .pane-box {
+    width: 32px;
+    height: 20px;
+    border: 1.5px solid #9ece6a;
+    border-radius: 3px;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .pane-box.split-h::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 2px;
+    bottom: 2px;
+    width: 1.5px;
+    background: #9ece6a;
+  }
+  .pane-box.split-v::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 2px;
+    right: 2px;
+    height: 1.5px;
+    background: #9ece6a;
+  }
+
+  /* Group box */
+  .group {
+    background: rgba(59, 66, 97, 0.25);
+    border: 1px solid #3b4261;
+    border-radius: 5px;
+    padding: 2mm 2.5mm;
+  }
+
+  .group-title {
+    font-size: 7.5pt;
+    font-weight: 600;
+    color: #7dcfff;
+    margin-bottom: 1.2mm;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    font-size: 6.5pt;
+    color: #3b4261;
+    margin-top: 2mm;
+    padding-top: 1.5mm;
+    border-top: 1px solid #292e42;
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <svg class="logo" viewBox="0 0 28 28" fill="none">
+    <rect x="2" y="4" width="24" height="20" rx="3" stroke="#7aa2f7" stroke-width="1.5" fill="none"/>
+    <text x="7" y="18" font-family="Consolas, monospace" font-size="10" font-weight="bold" fill="#7aa2f7">&gt;_</text>
+  </svg>
+  <h1>WezTerm Shortcuts</h1>
+  <span class="subtitle">My Custom Keybinds — A4 Landscape</span>
+</div>
+
+<!-- Leader key explanation -->
+<div class="leader-bar">
+  <span class="label">LEADER =</span>
+  <span class="key leader">Ctrl</span><span class="plus" style="color:#ff9e64;">+</span><span class="key leader">Q</span>
+  <span class="explain">… を押して離す → 1秒以内に次のキーを押す（tmux風）</span>
+</div>
+
+<!-- 3 Columns -->
+<div class="columns">
+
+  <!-- ====== LEFT COLUMN: 基本操作 ====== -->
+  <div class="column">
+    <div class="column-title">基本操作</div>
+
+    <div class="group">
+      <div class="group-title">タブ操作</div>
+      <div class="shortcut-row">
+        <span class="key">Ctrl</span><span class="plus">+</span><span class="key">Shift</span><span class="plus">+</span><span class="key accent">T</span>
+        <span class="arrow">→</span><span class="desc">新しいタブ</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key">Ctrl</span><span class="plus">+</span><span class="key">Shift</span><span class="plus">+</span><span class="key accent">W</span>
+        <span class="arrow">→</span><span class="desc">タブを閉じる</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key">Ctrl</span><span class="plus">+</span><span class="key accent">Tab</span>
+        <span class="arrow">→</span><span class="desc">次のタブ</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key">Ctrl</span><span class="plus">+</span><span class="key">Shift</span><span class="plus">+</span><span class="key accent">Tab</span>
+        <span class="arrow">→</span><span class="desc">前のタブ</span>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-title">ウィンドウ</div>
+      <div class="shortcut-row">
+        <span class="key">Ctrl</span><span class="plus">+</span><span class="key">Shift</span><span class="plus">+</span><span class="key accent">N</span>
+        <span class="arrow">→</span><span class="desc">新しいウィンドウ</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key">Alt</span><span class="plus">+</span><span class="key accent">Enter</span>
+        <span class="arrow">→</span><span class="desc">フルスクリーン</span>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-title">コピー＆ペースト</div>
+      <div class="shortcut-row">
+        <span class="key">Ctrl</span><span class="plus">+</span><span class="key">Shift</span><span class="plus">+</span><span class="key accent">C</span>
+        <span class="arrow">→</span><span class="desc">コピー</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key">Ctrl</span><span class="plus">+</span><span class="key">Shift</span><span class="plus">+</span><span class="key accent">V</span>
+        <span class="arrow">→</span><span class="desc">ペースト</span>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-title">その他</div>
+      <div class="shortcut-row">
+        <span class="key">Ctrl</span><span class="plus">+</span><span class="key">Shift</span><span class="plus">+</span><span class="key accent">F</span>
+        <span class="arrow">→</span><span class="desc">検索</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key leader">Leader</span><span class="then">→</span><span class="key accent">p</span>
+        <span class="arrow">→</span><span class="desc">コマンドパレット</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key">Shift</span><span class="plus">+</span><span class="key accent">Enter</span>
+        <span class="arrow">→</span><span class="desc">改行送信（Claude Code用）</span>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-title">フォントサイズ</div>
+      <div class="shortcut-row">
+        <span class="key">Ctrl</span><span class="plus">+</span><span class="key accent">=</span>
+        <span class="arrow">→</span><span class="desc">拡大</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key">Ctrl</span><span class="plus">+</span><span class="key accent">-</span>
+        <span class="arrow">→</span><span class="desc">縮小</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key">Ctrl</span><span class="plus">+</span><span class="key accent">0</span>
+        <span class="arrow">→</span><span class="desc">リセット</span>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-title">スクロール</div>
+      <div class="shortcut-row">
+        <span class="key">Shift</span><span class="plus">+</span><span class="key accent">PageUp</span>
+        <span class="arrow">→</span><span class="desc">上にスクロール</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key">Shift</span><span class="plus">+</span><span class="key accent">PageDn</span>
+        <span class="arrow">→</span><span class="desc">下にスクロール</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== CENTER COLUMN: ペイン操作 ====== -->
+  <div class="column">
+    <div class="column-title">ペイン操作 <span style="font-size:8pt;color:#ff9e64;font-weight:400;">（すべて Leader 経由）</span></div>
+
+    <div class="group">
+      <div class="group-title">分割・閉じる</div>
+      <div class="shortcut-row">
+        <span class="key leader">Leader</span><span class="then">→</span><span class="key green">d</span>
+        <span class="arrow">→</span>
+        <span class="desc">右に分割</span>
+        <div class="pane-box split-h" style="margin-left: 4px;"></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="key leader">Leader</span><span class="then">→</span><span class="key green">r</span>
+        <span class="arrow">→</span>
+        <span class="desc">下に分割</span>
+        <div class="pane-box split-v" style="margin-left: 4px;"></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="key leader">Leader</span><span class="then">→</span><span class="key green">x</span>
+        <span class="arrow">→</span>
+        <span class="desc">ペインを閉じる</span>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-title">ペイン移動（Vim風 or 矢印キー）</div>
+      <!-- HJKL cross layout with SVG -->
+      <svg width="180" height="72" viewBox="0 0 180 72" style="display: block; margin: 1mm auto;">
+        <defs>
+          <linearGradient id="keyGradGreen" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#9ece6a"/>
+            <stop offset="100%" stop-color="#56723c"/>
+          </linearGradient>
+        </defs>
+        <!-- K (up) -->
+        <rect x="72" y="0" width="36" height="22" rx="4" fill="url(#keyGradGreen)" stroke="#a9d275" stroke-width="1"/>
+        <text x="90" y="15" text-anchor="middle" fill="#fff" font-size="10" font-family="Consolas, monospace" font-weight="700">k</text>
+        <text x="90" y="0" text-anchor="middle" fill="#7dcfff" font-size="7" font-family="sans-serif" dy="-2">↑</text>
+        <!-- H (left) -->
+        <rect x="30" y="26" width="36" height="22" rx="4" fill="url(#keyGradGreen)" stroke="#a9d275" stroke-width="1"/>
+        <text x="48" y="41" text-anchor="middle" fill="#fff" font-size="10" font-family="Consolas, monospace" font-weight="700">h</text>
+        <text x="22" y="41" text-anchor="middle" fill="#7dcfff" font-size="7" font-family="sans-serif">←</text>
+        <!-- J (down) -->
+        <rect x="72" y="26" width="36" height="22" rx="4" fill="url(#keyGradGreen)" stroke="#a9d275" stroke-width="1"/>
+        <text x="90" y="41" text-anchor="middle" fill="#fff" font-size="10" font-family="Consolas, monospace" font-weight="700">j</text>
+        <text x="90" y="64" text-anchor="middle" fill="#7dcfff" font-size="7" font-family="sans-serif">↓</text>
+        <!-- L (right) -->
+        <rect x="114" y="26" width="36" height="22" rx="4" fill="url(#keyGradGreen)" stroke="#a9d275" stroke-width="1"/>
+        <text x="132" y="41" text-anchor="middle" fill="#fff" font-size="10" font-family="Consolas, monospace" font-weight="700">l</text>
+        <text x="158" y="41" text-anchor="middle" fill="#7dcfff" font-size="7" font-family="sans-serif">→</text>
+      </svg>
+      <div class="shortcut-row">
+        <span class="key leader">Leader</span><span class="then">→</span><span class="key green">h j k l</span>
+        <span class="arrow">→</span><span class="desc">ペイン移動</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key leader">Leader</span><span class="then">→</span><span class="key green">↑↓←→</span>
+        <span class="arrow">→</span><span class="desc">ペイン移動（矢印でも可）</span>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-title">ズーム</div>
+      <div class="shortcut-row">
+        <span class="key leader">Leader</span><span class="then">→</span><span class="key green">z</span>
+        <span class="arrow">→</span><span class="desc">ペインズーム（トグル）</span>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-title">ペインサイズ変更</div>
+      <div class="shortcut-row">
+        <span class="key leader">Leader</span><span class="then">→</span><span class="key">Shift</span><span class="plus">+</span><span class="key green">↑↓←→</span>
+        <span class="arrow">→</span><span class="desc">5単位でサイズ変更</span>
+      </div>
+      <!-- Mini visual -->
+      <svg width="200" height="50" viewBox="0 0 200 50" style="display:block; margin: 1mm auto 0;">
+        <defs>
+          <linearGradient id="keyGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#3b4261"/>
+            <stop offset="100%" stop-color="#292e42"/>
+          </linearGradient>
+        </defs>
+        <!-- Before box -->
+        <rect x="10" y="5" width="60" height="40" rx="3" stroke="#545c7e" stroke-width="1.5" fill="none"/>
+        <line x1="30" y1="5" x2="30" y2="45" stroke="#545c7e" stroke-width="1" stroke-dasharray="3"/>
+        <text x="40" y="28" text-anchor="middle" fill="#565f89" font-size="7" font-family="sans-serif">50:50</text>
+        <!-- Arrow -->
+        <text x="90" y="30" text-anchor="middle" fill="#ff9e64" font-size="14" font-family="sans-serif">→</text>
+        <!-- After box -->
+        <rect x="110" y="5" width="80" height="40" rx="3" stroke="#9ece6a" stroke-width="1.5" fill="none"/>
+        <line x1="155" y1="5" x2="155" y2="45" stroke="#9ece6a" stroke-width="1" stroke-dasharray="3"/>
+        <text x="155" y="28" text-anchor="middle" fill="#9ece6a" font-size="7" font-family="sans-serif">70:30</text>
+      </svg>
+    </div>
+
+    <div class="group" style="margin-top: 1mm;">
+      <div class="group-title">ペイン操作まとめ</div>
+      <table style="width:100%; border-collapse:collapse; font-size:7pt;">
+        <tr style="border-bottom:1px solid #3b4261;">
+          <td style="color:#ff9e64;padding:1px 4px;font-weight:600;">Leader → d</td>
+          <td style="color:#a9b1d6;">右に分割</td>
+        </tr>
+        <tr style="border-bottom:1px solid #3b4261;">
+          <td style="color:#ff9e64;padding:1px 4px;font-weight:600;">Leader → r</td>
+          <td style="color:#a9b1d6;">下に分割</td>
+        </tr>
+        <tr style="border-bottom:1px solid #3b4261;">
+          <td style="color:#ff9e64;padding:1px 4px;font-weight:600;">Leader → x</td>
+          <td style="color:#a9b1d6;">閉じる</td>
+        </tr>
+        <tr style="border-bottom:1px solid #3b4261;">
+          <td style="color:#ff9e64;padding:1px 4px;font-weight:600;">Leader → hjkl</td>
+          <td style="color:#a9b1d6;">移動</td>
+        </tr>
+        <tr style="border-bottom:1px solid #3b4261;">
+          <td style="color:#ff9e64;padding:1px 4px;font-weight:600;">Leader → z</td>
+          <td style="color:#a9b1d6;">ズーム</td>
+        </tr>
+        <tr>
+          <td style="color:#ff9e64;padding:1px 4px;font-weight:600;">Leader → Shift+↑↓←→</td>
+          <td style="color:#a9b1d6;">サイズ変更</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ====== RIGHT COLUMN: コピーモード ====== -->
+  <div class="column">
+    <div class="column-title">コピーモード <span style="font-size:8pt;color:#a9b1d6;font-weight:400;">（Vim風選択）</span></div>
+
+    <div class="group">
+      <div class="group-title">開始・終了</div>
+      <div class="shortcut-row">
+        <span class="key leader">Leader</span><span class="then">→</span><span class="key pink">[</span>
+        <span class="arrow">→</span><span class="desc">コピーモード開始</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key pink">y</span>
+        <span class="arrow">→</span><span class="desc">選択範囲をコピー＆終了</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key">Esc</span>
+        <span class="desc" style="margin-left:2px;">or</span>
+        <span class="key">q</span>
+        <span class="arrow">→</span><span class="desc">コピーモード終了</span>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-title">カーソル移動 (hjkl)</div>
+      <svg width="160" height="72" viewBox="0 0 160 72" style="display: block; margin: 1mm auto;">
+        <defs>
+          <linearGradient id="keyGradPink" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#bb9af7"/>
+            <stop offset="100%" stop-color="#6e4ca0"/>
+          </linearGradient>
+        </defs>
+        <!-- K (up) -->
+        <rect x="62" y="0" width="36" height="22" rx="4" fill="url(#keyGradPink)" stroke="#c8a9f9" stroke-width="1"/>
+        <text x="80" y="15" text-anchor="middle" fill="#fff" font-size="10" font-family="Consolas, monospace" font-weight="700">k</text>
+        <text x="80" y="-3" text-anchor="middle" fill="#7dcfff" font-size="7" font-family="sans-serif">↑</text>
+        <!-- H (left) -->
+        <rect x="20" y="26" width="36" height="22" rx="4" fill="url(#keyGradPink)" stroke="#c8a9f9" stroke-width="1"/>
+        <text x="38" y="41" text-anchor="middle" fill="#fff" font-size="10" font-family="Consolas, monospace" font-weight="700">h</text>
+        <text x="12" y="41" text-anchor="middle" fill="#7dcfff" font-size="7" font-family="sans-serif">←</text>
+        <!-- J (down) -->
+        <rect x="62" y="26" width="36" height="22" rx="4" fill="url(#keyGradPink)" stroke="#c8a9f9" stroke-width="1"/>
+        <text x="80" y="41" text-anchor="middle" fill="#fff" font-size="10" font-family="Consolas, monospace" font-weight="700">j</text>
+        <text x="80" y="64" text-anchor="middle" fill="#7dcfff" font-size="7" font-family="sans-serif">↓</text>
+        <!-- L (right) -->
+        <rect x="104" y="26" width="36" height="22" rx="4" fill="url(#keyGradPink)" stroke="#c8a9f9" stroke-width="1"/>
+        <text x="122" y="41" text-anchor="middle" fill="#fff" font-size="10" font-family="Consolas, monospace" font-weight="700">l</text>
+        <text x="148" y="41" text-anchor="middle" fill="#7dcfff" font-size="7" font-family="sans-serif">→</text>
+      </svg>
+    </div>
+
+    <div class="group">
+      <div class="group-title">選択モード</div>
+      <div class="shortcut-row">
+        <span class="key pink">v</span>
+        <span class="arrow">→</span><span class="desc">文字選択</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key pink">V</span>
+        <span class="arrow">→</span><span class="desc">行選択</span>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-title">単語・行・バッファ移動</div>
+      <div class="shortcut-row">
+        <span class="key small pink">w</span> <span class="desc">次の単語</span>
+        <span class="key small pink" style="margin-left:4px;">b</span> <span class="desc">前の単語</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key small pink">0</span> <span class="desc">行頭</span>
+        <span class="key small pink" style="margin-left:4px;">$</span> <span class="desc">行末</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key small orange">g</span> <span class="desc">バッファ先頭</span>
+        <span class="key small orange" style="margin-left:4px;">G</span> <span class="desc">バッファ末尾</span>
+      </div>
+    </div>
+
+    <div class="group" style="margin-top:1mm;">
+      <div class="group-title">コピーモード操作フロー</div>
+      <svg width="100%" height="52" viewBox="0 0 240 52" style="display:block;">
+        <!-- Step boxes -->
+        <rect x="0" y="8" width="55" height="28" rx="4" fill="rgba(255,158,100,0.15)" stroke="#ff9e64" stroke-width="1"/>
+        <text x="27" y="20" text-anchor="middle" fill="#ff9e64" font-size="6.5" font-family="sans-serif" font-weight="600">Leader → [</text>
+        <text x="27" y="30" text-anchor="middle" fill="#a9b1d6" font-size="5.5" font-family="sans-serif">開始</text>
+
+        <text x="64" y="26" fill="#565f89" font-size="10" font-family="sans-serif">→</text>
+
+        <rect x="73" y="8" width="45" height="28" rx="4" fill="rgba(187,154,247,0.15)" stroke="#bb9af7" stroke-width="1"/>
+        <text x="95" y="20" text-anchor="middle" fill="#bb9af7" font-size="6.5" font-family="sans-serif" font-weight="600">h j k l</text>
+        <text x="95" y="30" text-anchor="middle" fill="#a9b1d6" font-size="5.5" font-family="sans-serif">移動</text>
+
+        <text x="127" y="26" fill="#565f89" font-size="10" font-family="sans-serif">→</text>
+
+        <rect x="136" y="8" width="42" height="28" rx="4" fill="rgba(187,154,247,0.15)" stroke="#bb9af7" stroke-width="1"/>
+        <text x="157" y="20" text-anchor="middle" fill="#bb9af7" font-size="6.5" font-family="sans-serif" font-weight="600">v / V</text>
+        <text x="157" y="30" text-anchor="middle" fill="#a9b1d6" font-size="5.5" font-family="sans-serif">選択</text>
+
+        <text x="187" y="26" fill="#565f89" font-size="10" font-family="sans-serif">→</text>
+
+        <rect x="196" y="8" width="38" height="28" rx="4" fill="rgba(158,206,106,0.15)" stroke="#9ece6a" stroke-width="1"/>
+        <text x="215" y="20" text-anchor="middle" fill="#9ece6a" font-size="6.5" font-family="sans-serif" font-weight="600">y</text>
+        <text x="215" y="30" text-anchor="middle" fill="#a9b1d6" font-size="5.5" font-family="sans-serif">コピー</text>
+      </svg>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  ~/.config/wezterm/keybinds.lua に基づくカスタムキーバインド — Leader: Ctrl+Q (1秒) — 2026-02
+</div>
+
+</body>
+</html>
